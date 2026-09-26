@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import WaveAnimation from "./WaveAnimation.jsx";
 import { motion } from "framer-motion";
 import {
   ArrowRight, BadgeCheck, Building2, CheckCircle2, ChevronUp, Cloud,
@@ -88,6 +89,11 @@ function App() {
 
       <main>
         <section id="home" className="hero section">
+          {/* Full-width animated background */}
+          <div className="hero-wave-background" aria-hidden="true"><WaveAnimation /></div>
+
+          {/* Contrast layer for readable text */}
+          <div className="hero-contrast-overlay" aria-hidden="true"/>
           <div className="hero-grid container">
             <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <div className="eyebrow"><Sparkles size={16} /> Security-first technology consulting</div>
@@ -108,22 +114,7 @@ function App() {
               </div>
             </motion.div>
 
-            <motion.div className="hero-panel" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.1 }}>
-              <div className="panel-glow" />
-              <div className="panel-topline"><span>Technology Security Overview</span><BadgeCheck size={18} /></div>
-              <div className="security-grid">
-                <div className="security-card"><Network /><span>Network</span><strong>Hardened</strong></div>
-                <div className="security-card"><LockKeyhole /><span>Identity</span><strong>Protected</strong></div>
-                <div className="security-card"><Cloud /><span>Cloud</span><strong>Monitored</strong></div>
-                <div className="security-card"><Cpu /><span>AI</span><strong>Governed</strong></div>
-                <div className="security-card"><HardDrive /><span>Endpoints</span><strong>Managed</strong></div>
-                <div className="security-card"><Globe2 /><span>Web</span><strong>Secured</strong></div>
-              </div>
-              <div className="panel-footer">
-                <div><small>Coverage</small><strong>Infrastructure to application layer</strong></div>
-                <ShieldCheck size={28} />
-              </div>
-            </motion.div>
+            
           </div>
         </section>
 
