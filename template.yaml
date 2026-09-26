@@ -1,0 +1,94 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Celestin Industries Technology and Security Consulting website
+
+Globals:
+  Function:
+    Timeout: 10
+    MemorySize: 512
+
+Parameters:
+  ContactSenderEmail:
+    Type: String
+    MinLength: 3
+    Description: Verified SES address used in the From header
+  ContactRecipientEmail:
+    Type: String
+    MinLength: 3
+    Description: Business mailbox that receives website inquiries
+  SesIdentity:
+    Type: String
+    MinLength: 1
+    Description: Verified SES email or domain identity authorized to send
+  TurnstileSecretParameterName:
+    Type: String
+    AllowedPattern: '^/.*'
+    Description: Name of the SSM SecureString containing the Turnstile secret
+  IpHashSecretParameterName:
+    Type: String
+    AllowedPattern: '^/.*'
+    Description: Name of the SSM SecureString containing the IP HMAC secret
+
+Resources:
+  ContactRateLimitTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: rateKey
+          AttributeType: S
+      KeySchema:
+        - AttributeName: rateKey
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: expiresAt
+        Enabled: true
+
+  CelestinDevSite:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      FunctionName: 
+      CodeUri: .
+      Handler: server/app.handler
+      Runtime: nodejs24.x
+      Architectures:
+        - arm64
+      Environment:
+        Variables:
+          NODE_ENV: production
+          CONTACT_SENDER_EMAIL: !Ref ContactSenderEmail
+          CONTACT_RECIPIENT_EMAIL: !Ref ContactRecipientEmail
+          RATE_LIMIT_TABLE: !Ref ContactRateLimitTable
+          RATE_LIMIT_MAX: '5'
+          RATE_LIMIT_WINDOW_SECONDS: '900'
+          TURNSTILE_SECRET_PARAMETER_NAME: !Ref TurnstileSecretParameterName
+          IP_HASH_SECRET_PARAMETER_NAME: !Ref IpHashSecretParameterName
+      FunctionUrlConfig:
+        AuthType: NONE
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:UpdateItem
+              Resource: !GetAtt ContactRateLimitTable.Arn
+            - Effect: Allow
+              Action:
+                - ses:SendEmail
+              Resource: !Sub arn:${AWS::Partition}:ses:${AWS::Region}:${AWS::AccountId}:identity/${SesIdentity}
+            - Effect: Allow
+              Action:
+                - ssm:GetParameter
+              Resource:
+                - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter${TurnstileSecretParameterName}
+                - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter${IpHashSecretParameterName}
+
+Outputs:
+  CelestinDevSiteArn:
+    Description: Celestin Industries website Lambda ARN
+    Value: !GetAtt CelestinDevSite.Arn
+  CelestinDevSiteUrl:
+    Description: Public Lambda Function URL
+    Value: !GetAtt CelestinDevSiteUrl.FunctionUrl
