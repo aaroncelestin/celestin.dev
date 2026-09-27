@@ -78,7 +78,7 @@ class FatLines extends LineSegments2{
     const computeNode = tsl.compute(computeF, amount).setName("compute waves");
     
     let m = new THREE.Line2NodeMaterial({
-      lineColorNode: tsl.color("#5eb9ff"),
+      lineColorNode: tsl.color("#375b88"),
       linewidth: 0.075,
       worldUnits: true,
       alphaToCoverage: true,
@@ -160,7 +160,7 @@ class FatLines extends LineSegments2{
         
         return phaseF.mul(0.15);
       })(),
-      colorNode: tsl.color("#87f1d4"),
+      colorNode: tsl.color("#ff9a4a"),
       transparent: true,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
@@ -232,7 +232,7 @@ export default function WaveAnimation() {
         scene.backgroundNode = tsl.Fn(() => {
           const d = tsl.screenUV.sub(0.5).length().toVar();
           const f = tsl.smoothstep(0, 0.75, d);
-          return tsl.mix(tsl.color("#102840"), tsl.color("#07111f"), f);
+          return tsl.mix(tsl.color("#142d49"), tsl.color("#071323"), f);
         })();
         camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
         camera.position.set(1, 0.25, 1).setLength(10);
@@ -272,7 +272,7 @@ export default function WaveAnimation() {
     return () => { cancelled = true; cleanup(); };
   }, []);
 
-  return <div className="wave-animation" ref={mountRef} role="img" aria-label="Animated blue and mint security network wave">
+  return <div className="wave-animation" ref={mountRef} role="img" aria-label="Animated navy blue and copper-orange security network wave">
     {error && <span className="wave-fallback">{error}</span>}
   </div>;
 }

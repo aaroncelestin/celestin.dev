@@ -24,7 +24,7 @@ const services = [
 const team = [
   { name: "Aaron Celestin", role: "Founder & CEO", bio: "Leads cybersecurity, infrastructure, cloud, identity, endpoint, web security, and emerging AI security engagements." },
   { name: "Melissa Celestin", role: "Senior Consultant", bio: "Supports client technology initiatives, project planning, business requirements, and consulting engagements." },
-  { name: "Bryce Williams", role: "Senior Consultant", bio: "Supports infrastructure, technical planning, implementation, troubleshooting, and ongoing client technology operations." },
+  { name: "Joselyn Medina Cruz", role: "Technical Analyst", bio: "Supports infrastructure, technical planning, implementation, troubleshooting, and ongoing client technology operations." },
   { name: "Adrien Celestin", role: "Technical Consultant", bio: "Supports implementation, systems management, troubleshooting, and day-to-day client technology projects." },
 ];
 
