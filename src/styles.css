@@ -48,8 +48,9 @@ button { cursor: pointer; }
 .brand small { margin-top: 5px; color: var(--muted); font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
 .brand-mark {
   width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
-  color: var(--accent-2); border: 1px solid rgba(135,241,212,.28);
-  background: linear-gradient(145deg, rgba(94,185,255,.16), rgba(135,241,212,.08));
+  color: #EE681A;
+  border: 1px solid rgba(238, 104, 26, .32);
+  background: linear-gradient(145deg, rgba(238, 104, 26, .16), rgba(238, 104, 26, .06));
   box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
 }
 .nav-links { display: flex; align-items: center; gap: 24px; color: #c8d7e8; font-size: .92rem; font-weight: 650; }
