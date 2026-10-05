@@ -7,6 +7,7 @@ import {
   Radar, Server, ShieldCheck, Sparkles, Users, X
 } from "lucide-react";
 import ContactForm from "./ContactForm.jsx";
+import BrandLogo from "./BrandLogo.jsx";
 
 const services = [
   { icon: Network, title: "Network Security", text: "Secure architecture, segmentation, wireless security, VPNs, DNS protection, traffic monitoring, and vulnerability remediation." },
@@ -68,7 +69,7 @@ function App() {
       <header className="site-header">
         <div className="container nav-wrap">
           <a className="brand" href="#home" onClick={closeNav}>
-            <span className="brand-mark"><ShieldCheck size={22} /></span>
+            <span className="brand-mark"><BrandLogo size={24} /></span>
             <span><strong>Celestin Industries</strong><small>Technology and Security Consulting</small></span>
           </a>
 
@@ -252,11 +253,11 @@ function App() {
       <footer>
         <div className="container footer-grid">
           <div className="brand footer-brand">
-            <span className="brand-mark"><ShieldCheck size={22} /></span>
-            <span><strong>Celestin</strong><small>Technology Consulting</small></span>
+            <span className="brand-mark"><BrandLogo size={24} /></span>
+            <span><strong>Celestin Industries</strong><small>Technology Consulting</small></span>
           </div>
           <p>Security · Infrastructure · Cloud · AI · Web</p>
-          <p>© {new Date().getFullYear()} Celestin Technology Consulting. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Celestin Industries Technology Consulting. All rights reserved.</p>
         </div>
       </footer>
 
